@@ -97,6 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const pool_1 = cupData.pool_1 || [];
                 const pool_2 = cupData.pool_2 || [];
                 const pool_3 = cupData.pool_3 || [];
+                // Inside the drawGames function, else block (non-Final cups)
+                drawnGamesResult.original_pool_1 = pool_1; // Add original pool data
+                drawnGamesResult.original_pool_2 = pool_2;
+                drawnGamesResult.original_pool_3 = pool_3;
                 const pro_pool_dist = [...BASE_PRO_POOL];
                 const numSamples = (cupType === 'Mini') ? 4 : 3;
                 const anzahlSamples = sample(pro_pool_dist, numSamples);

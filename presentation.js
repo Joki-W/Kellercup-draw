@@ -62,6 +62,18 @@ document.addEventListener('DOMContentLoaded', () => {
              });
         }
 
+         if (data.cup_type !== 'Final') {
+             steps.push({
+                 type: 'pool_overview',
+                 title: 'Pool-Spieleübersicht', // German title
+                 pools: {
+                     pool1: data.original_pool_1,
+                     pool2: data.original_pool_2,
+                     pool3: data.original_pool_3
+                 }
+             });
+         }
+
         // Step 4 onwards: Original logic for pools/final (Original Titles)
         if (isFinal) {
              const drawnGames = data.drawn_pool_games || [];
@@ -186,6 +198,42 @@ document.addEventListener('DOMContentLoaded', () => {
                      }
                     break;
 
+                case 'pool_overview':
+                    const poolContainer = document.createElement('div');
+                    poolContainer.classList.add('pool-overview-container'); // Add container class
+
+                    const pools = [
+                        { name: 'Pool 1', games: step.pools.pool1 },
+                        { name: 'Pool 2', games: step.pools.pool2 },
+                        { name: 'Pool 3', games: step.pools.pool3 }
+                    ];
+
+                    pools.forEach(pool => {
+                        const poolColumn = document.createElement('div');
+                        poolColumn.classList.add('pool-column');
+
+                        const poolHeading = document.createElement('h4');
+                        poolHeading.textContent = `${pool.name} Spiele`;
+                        poolHeading.style.marginTop = '0';
+                        poolColumn.appendChild(poolHeading);
+
+                        const ul = document.createElement('ul');
+                        ul.style.paddingLeft = '1.2rem'; // Reduce default padding
+                        pool.games.forEach(game => {
+                            const li = document.createElement('li');
+                            li.textContent = game;
+                            li.style.fontSize = '1.1rem';
+                            li.style.marginBottom = '0.5rem';
+                            ul.appendChild(li);
+                        });
+
+                        poolColumn.appendChild(ul);
+                        poolContainer.appendChild(poolColumn);
+                    });
+
+                    contentContainer.appendChild(poolContainer);
+                    break;
+
                 case 'reveal_final_game':
                     const ulFinal = document.createElement('ul');
                     const liFinal = document.createElement('li');
@@ -199,6 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         contentContainer.appendChild(bigGameDiv);
                     }
                     break;
+
                 default:
                     console.error("Unknown step type:", step.type);
                     contentContainer.appendChild(document.createElement('p')).textContent = "Error displaying slide content."; // Original Text
