@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de"> <!-- Set language to German -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spielauslosung - Präsentation</title> <!-- German Title -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="presentation-body">
+
+    <div class="presentation-container">
+        <button id="close-presentation-button" class="presentation-close-x" title="Schließen">&times;</button> <!-- German Title attribute -->
+        <h2 id="presentation-title">Cup Auslosung</h2> <!-- Default Title, updated by JS -->
+
+        <div id="slide-content">
+            <!-- Dynamic content goes here -->
+             <div class="loading-placeholder">Präsentation wird geladen...</div> <!-- German Text -->
+        </div>
+
+        <div id="presentation-controls">
+             <!-- Button text set by presentation.js -->
+            <button id="prev-button" class="hidden visually-hidden"> <span class="arrow">&larr;</span> Zurück</button>
+            <button id="next-button">Weiter <span class="arrow">&rarr;</span></button>
+        </div>
+    </div>
+
+    <script src="presentation.js"></script>
+</body>
+</html>

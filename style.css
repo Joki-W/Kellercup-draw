@@ -1,0 +1,315 @@
+/* --- Base & Variables --- */
+:root {
+    --primary-color: #0d6efd; /* Bootstrap Blue */
+    --secondary-color: #6c757d; /* Gray */
+    --success-color: #198754; /* Green */
+    --warning-color: #ffc107; /* Yellow */
+    --info-color: #0dcaf0;   /* Cyan */
+    --light-bg: #f8f9fa;
+    --dark-text: #212529;
+    --medium-text: #495057;
+    --border-color: #dee2e6;
+    --border-radius: 0.375rem; /* Bootstrap default */
+    --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    --transition-speed: 0.25s;
+}
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--light-bg);
+    color: var(--dark-text);
+    display: flex;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* --- Container for Index Page --- */
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: auto; /* Center vertically and horizontally */
+    background: #fff;
+    padding: 40px 50px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+h1, h2, h3, h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.8em;
+    font-weight: 600;
+}
+h1 {
+    margin-bottom: 1.5em;
+    font-size: 2.4rem;
+}
+
+p {
+    color: var(--medium-text);
+    margin-bottom: 1.5em;
+    font-size: 1.1rem;
+}
+
+/* --- Cup Selection Buttons (index.html) --- */
+#cup-selection-area {
+    margin-bottom: 30px;
+}
+#cup-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Increased gap */
+}
+.cup-button {
+    padding: 20px 35px; /* Increased padding */
+    font-size: 1.25rem; /* Increased font size */
+    font-weight: 500; /* Slightly bolder */
+    border: 2px solid var(--border-color);
+    background-color: #fff;
+    color: var(--primary-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    display: inline-block; /* Simpler display if no icon */
+    text-align: center;
+    min-width: 150px; /* Ensure minimum width */
+}
+.cup-button:hover {
+    background-color: #eef5ff; /* Light blue hover */
+    border-color: var(--primary-color);
+    transform: translateY(-2px); /* Keep lift */
+}
+.cup-button.selected {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 8px rgba(0, 94, 162, 0.3);
+    transform: translateY(-2px);
+}
+
+/* --- Start Button Area (index.html) --- */
+#start-button-area {
+    margin-top: 30px;
+}
+#start-draw-button {
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+#start-draw-button:not(:disabled):hover {
+    background-color: #146c43; /* Darker green */
+    transform: translateY(-2px);
+}
+#start-draw-button:disabled {
+    background-color: var(--secondary-color);
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* --- Presentation Styles (presentation.html) --- */
+.presentation-body {
+    background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); /* Light teal gradient */
+    align-items: center; /* Center container */
+    justify-content: center;
+}
+
+.presentation-container {
+    background: #fff;
+    padding: 35px 45px;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    width: 90%;
+    max-width: 750px;
+    text-align: center;
+    position: relative; /* For close button */
+    display: flex;
+    flex-direction: column;
+    min-height: 450px; /* Ensure decent height */
+}
+
+#presentation-title {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: 2rem;
+    color: var(--dark-text);
+}
+
+.presentation-close-x {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2.2rem;
+    font-weight: bold;
+    line-height: 1;
+    color: var(--secondary-color);
+    background: none;
+    border: none;
+    padding: 0 5px;
+    cursor: pointer;
+    transition: color var(--transition-speed) ease;
+}
+.presentation-close-x:hover {
+    color: var(--dark-text);
+}
+
+#slide-content {
+    flex-grow: 1; /* Takes available space */
+    min-height: 250px; /* Ensure content area has height */
+    margin-bottom: 30px;
+    text-align: left;
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out;
+}
+#slide-content.fade-out {
+    opacity: 0;
+}
+
+.loading-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.2rem;
+    color: var(--medium-text);
+}
+
+#slide-content h3 { /* Slide sub-headings */
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+#slide-content ul {
+    list-style: none;
+    padding-left: 0;
+    text-align: center;
+}
+#slide-content li {
+    background-color: var(--light-bg);
+    color: var(--dark-text);
+    margin: 12px auto;
+    padding: 16px 25px; /* Increased padding */
+    border-radius: var(--border-radius);
+    border-left: 6px solid var(--primary-color); /* Thicker border */
+    max-width: 550px; /* Slightly wider */
+    text-align: center;
+    font-size: 1.3rem; /* Increased font size for ALL game list items */
+    font-weight: 500; /* Slightly bolder */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+/* Specific styling for Dart game reveal */
+#slide-content li.darts-game-item {
+     border-left-color: var(--success-color); /* Green border for darts */
+     background-color: #d1e7dd; /* Light green background */
+     color: #0f5132; /* Darker green text */
+     font-weight: 600; /* Bolder */
+}
+
+/* Specific styling for pool count display */
+#slide-content .pool-count-item {
+     font-weight: 600;
+     background-color: #cfe2ff; /* Lighter Bootstrap blue */
+     border-left-color: var(--primary-color);
+     color: #0a58ca; /* Darker blue text */
+     font-size: 1.15rem; /* Pool counts can be slightly smaller than games */
+}
+/* Styling for Big Game reveal */
+#slide-content .big-game-reveal {
+    margin-top: 20px;
+    padding: 15px 20px;
+    background-color: #fff3cd; /* Bootstrap yellow */
+    border-left: 5px solid var(--warning-color);
+    border-radius: var(--border-radius);
+    color: #664d03; /* Darker yellow text */
+    font-weight: 600;
+    text-align: center;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.2rem; /* Size for big game */
+}
+
+#slide-content p { /* General paragraph styling in slides */
+     text-align: center;
+     font-size: 1.15rem;
+     color: var(--medium-text);
+     padding: 15px 0;
+}
+
+#presentation-controls {
+    margin-top: auto; /* Push controls to the bottom */
+    padding-top: 25px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end; /* ALIGN BUTTONS TO THE RIGHT */
+    align-items: center;
+    width: 100%;
+    gap: 15px; /* Add gap for spacing between buttons */
+}
+
+#presentation-controls button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+/* Make Previous button take up remaining space when visible */
+#presentation-controls #prev-button:not(.hidden):not(.visually-hidden) {
+     margin-right: auto; /* Pushes Next button to the far right */
+}
+
+#presentation-controls button:not(:disabled):hover {
+    background-color: #0a58ca;
+}
+#presentation-controls button:disabled {
+    background-color: var(--secondary-color);
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+#presentation-controls button .arrow {
+    font-size: 1.2em;
+    line-height: 1;
+}
+#prev-button {
+    background-color: var(--secondary-color);
+}
+#prev-button:not(:disabled):hover {
+    background-color: #5a6268;
+}
+
+
+/* --- Utility --- */
+.hidden {
+    display: none !important; /* Hide elements */
+}
+.visually-hidden { /* For semantic elements needed for controls, but visually hidden */
+   visibility: hidden;
+}
+
+.error {
+    color: #842029; /* Bootstrap red */
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    padding: 1rem 1.25rem;
+    margin-top: 1.5rem;
+    border-radius: var(--border-radius);
+    text-align: left;
+}
