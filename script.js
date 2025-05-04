@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function getPoolsForCup(cupType) {
         const BASE_POOL_1 = ["Waffenspiel", "Schneeball", "Super Smash Bros", "Elytren"];
         const BASE_POOL_2 = ["MP Minispiele", "Beat", "Square off", "Boccia", "Wii Bowling"];
-        const BASE_POOL_3 = ["200ccm", "Dobble", "Hosn obi", "Ultimat Chicken Horse run"];
+        const BASE_POOL_3 = ["200ccm", "Dobble", "Hosn obi", "Ultimate Chicken Horse"];
 
         const pool_1 = [...BASE_POOL_1];
         const pool_2 = [...BASE_POOL_2];
