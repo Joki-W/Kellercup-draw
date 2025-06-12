@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cupButtonsContainer = document.getElementById('cup-buttons-container');
     const startDrawButton = document.getElementById('start-draw-button');
     const errorArea = document.getElementById('error-area');
+    const quizSwitch = document.getElementById('quiz-switch')
 
     // --- State ---
     let selectedCup = null;
@@ -37,6 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const pool_2 = [...BASE_POOL_2];
         const pool_3 = [...BASE_POOL_3];
         let fixed_games = ['Minigolf', '1 Dart', 'Party', '150ccm'];
+
+        if(quizSwitch.checked){
+            pool_3.push('Quiz');
+        }
 
         if (['Mini', 'Mikro', 'Final'].includes(cupType)) {
             pool_1.push('MC Kampf');
