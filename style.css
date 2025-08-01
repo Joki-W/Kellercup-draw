@@ -418,3 +418,29 @@ input:checked + .slider:before {
 #quiz-selection span {
     margin-right: 10px;
 }
+
+.game-list {
+    display: grid;
+    /* This creates two columns of equal width */
+    grid-template-columns: repeat(2, 1fr);
+
+    /* This adds a gap between the columns (optional) */
+    column-gap: 1.5rem;
+
+    /* These are optional for better aesthetics */
+    list-style: none;
+    padding-left: 0;
+
+}
+
+.game-list li {
+    /* Visual styling from your screenshot */
+    background-color: #f8f9fa;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    border-left: 5px solid #0d6efd; /* The blue bar on the left */
+
+    /* --- This is the magic part for equal height & alignment --- */
+    display: flex !important;
+    align-items: center; /* Vertically centers the text in the box */
+}

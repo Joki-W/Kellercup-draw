@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add CUP_OPTIONS here for German display name lookup in the main title
     const CUP_OPTIONS = [
-        { name: 'Final', german: 'Finale' },
+        { name: 'Final', german: 'Final' },
         { name: 'Mini', german: 'Mini' },
         { name: 'Mikro', german: 'Mikro' },
         { name: 'Nano', german: 'Nano' },
@@ -86,6 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         bigGameChoice: (game === 'Big Game') ? data.selected_big_game : null
                     });
                 });
+
+                steps.push({
+                    type: 'overview_drawn_games',
+                    //title: 'Ausgeloste Spiele',
+                    games: drawnGames
+                })
+
             } else {
                  steps.push({ type: 'message', title: 'Drawn Games', text: 'No games were drawn from the pools.' }); // Original Text
             }
@@ -101,6 +108,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (counts.pool1 > 0) steps.push({ type: 'reveal_pool', title: 'Pool 1 Games', pool: 1, games: pool1Games }); // Original Title
                 if (counts.pool2 > 0) steps.push({ type: 'reveal_pool', title: 'Pool 2 Games', pool: 2, games: pool2Games }); // Original Title
                 if (counts.pool3 > 0) steps.push({ type: 'reveal_pool', title: 'Pool 3 Games', pool: 3, games: pool3Games }); // Original Title
+
+                steps.push({
+                    type: 'drawn_Pool_Games',
+                    //title: 'Ausgeloste Spiele',
+                    poolGames:{
+                        pool1: pool1Games,
+                        pool2: pool2Games,
+                        pool3: pool3Games
+                    }
+                })
              } else {
                  steps.push({ type: 'message', title: 'Drawn Games', text: 'No additional games were drawn from the pools.' }); // Original Text
              }
@@ -248,6 +265,47 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     break;
 
+                case 'overview_drawn_games':
+                    const ulGames = document.createElement('ul');
+
+                    ulGames.classList.add('game-list');
+
+                    (step.games || []).forEach(game => {
+                        const li = document.createElement('li');
+                        li.textContent = game; // Display original game name
+                        ulGames.appendChild(li);
+                    });
+                    if (ulGames.children.length === 0) {
+                        contentContainer.appendChild(document.createElement('p')).textContent = "No games in this pool."; // Original Text
+                    } else {
+                        contentContainer.appendChild(ulGames);
+                    }
+                    break;
+
+
+                case 'drawn_Pool_Games':
+                    let drawnPoolGames = step.poolGames.pool1;
+                    drawnPoolGames = drawnPoolGames.concat(step.poolGames.pool2);
+                    drawnPoolGames = drawnPoolGames.concat(step.poolGames.pool3);
+
+                    const ulPoolGames = document.createElement('ul');
+
+                    ulPoolGames.classList.add('game-list');
+
+                    (drawnPoolGames || []).forEach(game => {
+                        const li = document.createElement('li');
+                        li.textContent = game; // Display original game name
+                        ulPoolGames.appendChild(li);
+                    });
+                    if (ulPoolGames.children.length === 0) {
+                        contentContainer.appendChild(document.createElement('p')).textContent = "No games in this pool."; // Original Text
+                    } else {
+                        contentContainer.appendChild(ulPoolGames);
+                    }
+
+                    break;
+
+
                 default:
                     console.error("Unknown step type:", step.type);
                     contentContainer.appendChild(document.createElement('p')).textContent = "Error displaying slide content."; // Original Text
@@ -300,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
              // Use German cup name if available for the main title
             const cupDisplayName = CUP_OPTIONS.find(c => c.name === drawnData.cup_type)?.german || drawnData.cup_type;
-             presentationTitle.textContent = `${cupDisplayName} Cup Auslosung`; // Set German title
+             presentationTitle.textContent = `${cupDisplayName}-Kellercup Auslosung`; // Set German title
              presentationSteps = generatePresentationSteps(drawnData); // Steps now have original titles/game names
 
              if(presentationSteps.length === 0 || (presentationSteps[0] && presentationSteps[0].type === 'error')) {
