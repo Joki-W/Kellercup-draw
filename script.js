@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Mini', german: 'Mini' },
         { name: 'Mikro', german: 'Mikro' },
         { name: 'Nano', german: 'Nano' },
-        { name: 'Piko', german: 'Piko' }
+        { name: 'Piko', german: 'Piko' },
+        { name: 'Femto', german: 'Femto'}
     ];
     const DRAW_DATA_KEY = 'gameDrawData'; // Key for sessionStorage
 
@@ -30,9 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Core Drawing Logic ---
     function getPoolsForCup(cupType) {
-        const BASE_POOL_1 = ["Waffenspiel", "Schneeball", "Super Smash Bros", "Elytren"];
-        const BASE_POOL_2 = ["MP Minispiele", "Beat", "Square off", "Boccia", "Wii Bowling"];
-        const BASE_POOL_3 = ["200ccm", "Dobble", "Hosn obi", "Ultimate Chicken Horse"];
+        const BASE_POOL_1 = ["Waffenspiel", "Schneeball", "Super Smash Bros", "Elytren", "Tricky Towers"];
+        const BASE_POOL_2 = ["Minispiele", "Minispiele", "Beat", "Boccia", "Wii Bowling", "Wii (Frisbee)Golf"];
+        const BASE_POOL_3 = ["Dobble", "Hosn obi", "Ultimate Chicken Horse", "Beerpong"];
 
         const pool_1 = [...BASE_POOL_1];
         const pool_2 = [...BASE_POOL_2];
@@ -43,6 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
             pool_3.push('Quiz');
         }
 
+        if (['Femto','Piko'].includes(cupType)) {
+            pool_3.push('MK World');
+        }
+        if (['Mini', 'Mikro', 'Nano'].includes(cupType)) {
+            pool_3.push('2tes Mario Kart');
+        }
         if (['Mini', 'Mikro', 'Final'].includes(cupType)) {
             pool_1.push('MC Kampf');
         }
@@ -56,6 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             fixed_games.push('Hosn obi');
             const all_games = [...pool_1, ...pool_2, ...pool_3, 'Big Game'];
+            all_games.push('MK World');
+            all_games.push('200ccm');
+            all_games.push('Minispiele');
             return {
                 type: 'final',
                 all_potential_games: all_games,
@@ -75,6 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const BASE_DARTS = ['Around the Clock', '501'];
         const BASE_PRO_POOL = [1, 1, 1, 2, 2, 2, 3, 3, 3];
         const BIG_GAME = ['Siedler', 'Scrabble'];
+        let PARTY_GAMES = ['Square off', 'MP Superstars', 'MP Jamboree', 'Buzz! Jungle Party'];
+        const MARIO_KART = ['200ccm','MK World'];
+        const WII_GOLF = ['Wii Golf','Frisbee Golf'];
+
+
 
         const cupData = getPoolsForCup(cupType);
         if (!cupData || !cupData.type) {
@@ -98,26 +113,88 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     drawnGamesResult.selected_big_game = null;
                 }
+
+
+                while(drawnGamesResult.drawn_pool_games.includes('Minispiele')){
+                    let minigamesIndex = drawnGamesResult.drawn_pool_games.indexOf('Minispiele');
+                    if(minigamesIndex > -1){
+                        drawnGamesResult.drawn_pool_games.splice(minigamesIndex,1);
+                    }
+                    let game = getRandomElement(PARTY_GAMES);
+                    let gameIndex = PARTY_GAMES.indexOf(game);
+                    if(gameIndex > -1){
+                        PARTY_GAMES.splice(gameIndex,1);
+                    }
+                    drawnGamesResult.drawn_pool_games.push(game);
+                }
+
+
+                if(drawnGamesResult.drawn_pool_games.includes('Wii (Frisbee)Golf')){
+                    const golfIndex = drawnGamesResult.drawn_pool_games.indexOf('Wii (Frisbee)Golf');
+                    if(golfIndex > -1){
+                        drawnGamesResult.drawn_pool_games.splice(golfIndex,1);
+                    }
+                    drawnGamesResult.drawn_pool_games.push(getRandomElement(WII_GOLF));
+                }
+
             } else {
                 const pool_1 = cupData.pool_1 || [];
                 const pool_2 = cupData.pool_2 || [];
                 const pool_3 = cupData.pool_3 || [];
+
                 // Inside the drawGames function, else block (non-Final cups)
                 drawnGamesResult.original_pool_1 = pool_1; // Add original pool data
                 drawnGamesResult.original_pool_2 = pool_2;
                 drawnGamesResult.original_pool_3 = pool_3;
+
                 const pro_pool_dist = [...BASE_PRO_POOL];
                 const numSamples = (cupType === 'Mini') ? 4 : 3;
                 const anzahlSamples = sample(pro_pool_dist, numSamples);
+
                 let count_pool_1 = anzahlSamples.filter(p => p === 1).length + 1;
                 let count_pool_2 = anzahlSamples.filter(p => p === 2).length + 1;
                 let count_pool_3 = anzahlSamples.filter(p => p === 3).length + 1;
+
                 count_pool_1 = Math.min(count_pool_1, pool_1.length);
                 count_pool_2 = Math.min(count_pool_2, pool_2.length);
                 count_pool_3 = Math.min(count_pool_3, pool_3.length);
+
                 drawnGamesResult.drawn_pool_1 = sample(pool_1, count_pool_1);
                 drawnGamesResult.drawn_pool_2 = sample(pool_2, count_pool_2);
                 drawnGamesResult.drawn_pool_3 = sample(pool_3, count_pool_3);
+
+                if(drawnGamesResult.drawn_pool_2.includes('Wii (Frisbee)Golf')){
+                    const golfIndex = drawnGamesResult.drawn_pool_2.indexOf('Wii (Frisbee)Golf');
+                    if(golfIndex > -1){
+                        drawnGamesResult.drawn_pool_2.splice(golfIndex,1);
+                    }
+                    drawnGamesResult.drawn_pool_2.push(getRandomElement(WII_GOLF));
+                }
+
+                if(drawnGamesResult.drawn_pool_3.includes('2tes Mario Kart')){
+                    const kartIndex = drawnGamesResult.drawn_pool_3.indexOf('2tes Mario Kart');
+                    if(kartIndex > -1){
+                        drawnGamesResult.drawn_pool_3.splice(kartIndex,1);
+                    }
+                    drawnGamesResult.drawn_pool_3.push(getRandomElement(MARIO_KART));
+                }
+
+
+
+                while(drawnGamesResult.drawn_pool_2.includes('Minispiele')){
+                    const minigamesIndex = drawnGamesResult.drawn_pool_2.indexOf('Minispiele');
+                    if(minigamesIndex > -1){
+                        drawnGamesResult.drawn_pool_2.splice(minigamesIndex,1);
+                    }
+                    const game = getRandomElement(PARTY_GAMES);
+                    const gameIndex = PARTY_GAMES.indexOf(game);
+                    if(gameIndex > -1){
+                        PARTY_GAMES.splice(gameIndex,1);
+                    }
+                    drawnGamesResult.drawn_pool_2.push(game);
+                }
+
+
             }
         } catch (err) {
             console.error("Error occurred during game drawing:", err);
