@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Core Drawing Logic ---
     function getPoolsForCup(cupType) {
         const BASE_POOL_1 = ["Waffenspiel", "Schneeball", "Super Smash Bros", "Elytren", "Tricky Towers"];
-        const BASE_POOL_2 = ["Minispiele", "Minispiele", "Beat", "Boccia", "Wii Bowling", "Wii (Frisbee)Golf"];
+        const BASE_POOL_2 = ["Minispiele", "Minispiele", "Beat", "Boccia", "Wii Bowling", "Wii Golf"];
         const BASE_POOL_3 = ["Dobble", "Hosn obi", "Ultimate Chicken Horse", "Beerpong"];
 
         const pool_1 = [...BASE_POOL_1];
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const BIG_GAME = ['Siedler', 'Scrabble'];
         let PARTY_GAMES = ['Square off', 'MP Superstars', 'MP Jamboree', 'Buzz! Jungle Party'];
         const MARIO_KART = ['200ccm','MK World'];
-        const WII_GOLF = ['Wii Golf','Frisbee Golf'];
+        const WII_GOLF = ['Wii Golf'];
 
 
 
@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
 
+                /*
                 if(drawnGamesResult.drawn_pool_games.includes('Wii (Frisbee)Golf')){
                     const golfIndex = drawnGamesResult.drawn_pool_games.indexOf('Wii (Frisbee)Golf');
                     if(golfIndex > -1){
@@ -136,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     drawnGamesResult.drawn_pool_games.push(getRandomElement(WII_GOLF));
                 }
+                */
 
             } else {
                 const pool_1 = cupData.pool_1 || [];
@@ -163,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 drawnGamesResult.drawn_pool_2 = sample(pool_2, count_pool_2);
                 drawnGamesResult.drawn_pool_3 = sample(pool_3, count_pool_3);
 
+                /*
                 if(drawnGamesResult.drawn_pool_2.includes('Wii (Frisbee)Golf')){
                     const golfIndex = drawnGamesResult.drawn_pool_2.indexOf('Wii (Frisbee)Golf');
                     if(golfIndex > -1){
@@ -170,6 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     drawnGamesResult.drawn_pool_2.push(getRandomElement(WII_GOLF));
                 }
+                */
 
                 if(drawnGamesResult.drawn_pool_3.includes('2tes Mario Kart')){
                     const kartIndex = drawnGamesResult.drawn_pool_3.indexOf('2tes Mario Kart');
