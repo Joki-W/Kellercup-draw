@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Core Drawing Logic ---
     function getPoolsForCup(cupType) {
         const BASE_POOL_1 = ["Waffenspiel", "Schneeball", "Super Smash Bros", "Elytren", "Tricky Towers"];
-        const BASE_POOL_2 = ["Minispiele", "Minispiele", "Beat", "Boccia", "Wii Bowling", "Wii Golf"];
-        const BASE_POOL_3 = ["Dobble", "Hosn obi", "Ultimate Chicken Horse", "Beerpong"];
+        const BASE_POOL_2 = ["Beat", "Boccia", "Wii Bowling", "Wii Golf", "Wii Basketball", "Beerpong"];
+        const BASE_POOL_3 = ["Minispiele", "Minispiele", "Dobble", "Hosn obi", "Ultimate Chicken Horse"];
 
         const pool_1 = [...BASE_POOL_1];
         const pool_2 = [...BASE_POOL_2];
@@ -185,17 +185,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-                while(drawnGamesResult.drawn_pool_2.includes('Minispiele')){
-                    const minigamesIndex = drawnGamesResult.drawn_pool_2.indexOf('Minispiele');
+                while(drawnGamesResult.drawn_pool_3.includes('Minispiele')){
+                    const minigamesIndex = drawnGamesResult.drawn_pool_3.indexOf('Minispiele');
                     if(minigamesIndex > -1){
-                        drawnGamesResult.drawn_pool_2.splice(minigamesIndex,1);
+                        drawnGamesResult.drawn_pool_3.splice(minigamesIndex,1);
                     }
                     const game = getRandomElement(PARTY_GAMES);
                     const gameIndex = PARTY_GAMES.indexOf(game);
                     if(gameIndex > -1){
                         PARTY_GAMES.splice(gameIndex,1);
                     }
-                    drawnGamesResult.drawn_pool_2.push(game);
+                    drawnGamesResult.drawn_pool_3.push(game);
                 }
 
 
