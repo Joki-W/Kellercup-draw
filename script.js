@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Mikro', german: 'Mikro' },
         { name: 'Nano', german: 'Nano' },
         { name: 'Piko', german: 'Piko' },
-        { name: 'Femto', german: 'Femto'}
+        { name: 'Femto', german: 'Femto'},
+        { name: 'Atto', german: 'Atto'}
     ];
     const DRAW_DATA_KEY = 'gameDrawData'; // Key for sessionStorage
 
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cupButtonsContainer = document.getElementById('cup-buttons-container');
     const startDrawButton = document.getElementById('start-draw-button');
     const errorArea = document.getElementById('error-area');
-    const quizSwitch = document.getElementById('quiz-switch')
+    //const quizSwitch = document.getElementById('quiz-switch')
 
     // --- State ---
     let selectedCup = null;
@@ -31,20 +32,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Core Drawing Logic ---
     function getPoolsForCup(cupType) {
-        const BASE_POOL_1 = ["Waffenspiel", "Schneeball", "Super Smash Bros", "Elytren", "Tricky Towers"];
-        const BASE_POOL_2 = ["Beat", "Boccia", "Wii Bowling", "Wii Golf", "Wii Basketball", "Beerpong"];
-        const BASE_POOL_3 = ["Minispiele", "Minispiele", "Dobble", "Hosn obi", "Ultimate Chicken Horse"];
+        const BASE_POOL_1 = ["Waffenspiel", "Schneeball", "Super Smash Bros", "Elytren", "Tricky Towers", "Ultimate Chicken Horse"];
+        const BASE_POOL_2 = ["Beat", "Boccia", "Wii Bowling", "Wii Golf", "Wii Basketball", "Beerpong", "Nageln"];
+        const BASE_POOL_3 = ["Minispiele", "Minispiele", "Dobble", "Hosn obi", "Achtung die Kurve", "Quiz"];
 
         const pool_1 = [...BASE_POOL_1];
         const pool_2 = [...BASE_POOL_2];
         const pool_3 = [...BASE_POOL_3];
         let fixed_games = ['Minigolf', '1 Dart', 'Party', '150ccm'];
 
+        /*
         if(quizSwitch.checked){
             pool_3.push('Quiz');
         }
+        */
+        
 
-        if (['Femto','Piko'].includes(cupType)) {
+        if (['Femto','Piko','Atto'].includes(cupType)) {
             pool_3.push('MK World');
         }
         if (['Mini', 'Mikro', 'Nano'].includes(cupType)) {

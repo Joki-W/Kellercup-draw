@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Mikro', german: 'Mikro' },
         { name: 'Nano', german: 'Nano' },
         { name: 'Piko', german: 'Piko' },
-        { name: 'Femto', german: 'Femto'}
+        { name: 'Femto', german: 'Femto'},
+        { name: 'Atto', german: 'Atto'}
     ];
 
     // --- Helper: Generate Presentation Steps (Original Game Names/Titles) ---
